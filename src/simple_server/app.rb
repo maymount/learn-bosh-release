@@ -24,7 +24,11 @@ get '/:id' do |n|
     0
   end
 
-  $twelve[i]
+  begin
+    $twelve[i]
+  rescue
+    "Huh?"
+  end
 end
 
 get '/' do
