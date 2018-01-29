@@ -10,7 +10,7 @@ end
 
 get '/:q' do |q|
   picked_server = servers.sample
-  redirect picked_server + q
+  redirect picked_server + '/' + q
 end
 
 get '/' do

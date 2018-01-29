@@ -3,7 +3,7 @@ require 'json'
 
 # From https://12factor.net/
 
-rules = [
+$rules = [
   "Codebase: One codebase tracked in revision control, many deploys",
   "Dependencies: Explicitly declare and isolate dependencies",
   "Config: Store config in the environment",
@@ -20,19 +20,21 @@ rules = [
 
 def all_rules
   s = []
-  rules.each_with_index { |t, n| s << "#{n+1}: #{t}" }
+  $rules.each_with_index { |t, n| s << "#{n+1}: #{t}" }
   s.join("\r\n")
 end
 
 def get_rule(n)
   i = Integer(n) - 1
-  if i >= 0 && i < rules.length
-    rules[i]
+  if i >= 0 && i < $rules.length
+    $rules[i]
   else
     'Not a rule'
   end
-rescue
-  "Huh?  #{n.inspect} is invalid"
+rescue => ex
+  r = ["Huh?  #{n.inspect} is invalid", ex.to_s]
+  ex.backtrace.each { |x| r << x}
+  r.join("\r\n")
 end
 
 get '/kill' do
