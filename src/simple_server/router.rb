@@ -8,8 +8,14 @@ unless servers.size > 0
   raise "At least one server must be provided"
 end 
 
+get '/:q' do |q|
+  picked_server = servers.sample
+  redirect picked_server + q
+end
+
 get '/' do
   picked_server = servers.sample
   redirect picked_server
 end
+
 

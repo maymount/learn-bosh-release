@@ -33,10 +33,23 @@ jobs:
 - name: app
   templates:
   - name: app
-  instances: 1
+  instances: 2
   resource_pool: default
   networks:
   - name: default
     static_ips:
     - 10.244.0.2
+    - 10.244.0.6
   properties: {}
+- name: router
+  templates:
+  - name: router
+  instances: 1
+  networks:
+  - name: default
+    static_ips: [10.244.0.10]
+  properties:
+    servers: 
+      - "http://10.244.0.2:8080"
+      - "http://10.244.0.6:8080"
+  resource_pool: default
