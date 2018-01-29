@@ -27,12 +27,14 @@ get '/:id' do |n|
   begin
     $twelve[i]
   rescue
-    "Huh?"
+    "Huh?  #{n.inspect}"
   end
 end
 
 get '/' do
-  $twelve.join("\r\n")
+  s = []
+  $twelve.each_with_index { |t, n| s << "#{n+1}: #{t}" }
+  s.join("\r\n")
 end
 
 get '/kill' do
